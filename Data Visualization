@@ -1,0 +1,7 @@
+# Importing CSV File
+import pandas as pd
+data = pd.read_csv("/Users/saiffallah.GREENTNS/Desktop/titanic.csv",sep=',')
+data.head()
+#
+# Replace the missing values of the column "Age" with:
+data['Age'].fillna(data['Age'].mean(),inplace=True)
