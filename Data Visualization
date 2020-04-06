@@ -5,3 +5,16 @@ data.head()
 #
 # Replace the missing values of the column "Age" with:
 data['Age'].fillna(data['Age'].mean(),inplace=True)
+#
+# Histogram of different Age
+plt.title("Histograme of different ages")
+plt.xlabel("Age")
+data['Age'].plot.hist()
+#
+# 
+from sklearn.preprocessing import LabelEncoder
+encoder=LabelEncoder()
+data['Sex']=encoder.fit_transform(data['Sex'])
+data
+
+
