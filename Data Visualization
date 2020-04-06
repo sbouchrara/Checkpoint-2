@@ -7,14 +7,20 @@ data.head()
 data['Age'].fillna(data['Age'].mean(),inplace=True)
 #
 # Histogram of different Age
+import matplotlib.pyplot as plt
 plt.title("Histograme of different ages")
 plt.xlabel("Age")
 data['Age'].plot.hist()
 #
-# 
+# transform Sex's Type values to numerical values
 from sklearn.preprocessing import LabelEncoder
 encoder=LabelEncoder()
 data['Sex']=encoder.fit_transform(data['Sex'])
 data
+#
+#
+import seaborn as sns
+g=sns.FacetGrid(data,col='Survived')
+g.map(plt.hist,'Sex')
 
 
