@@ -1,5 +1,10 @@
-# Importing CSV File
+
+# Importing Libraries
+import seaborn as sns
 import pandas as pd
+import matplotlib.pyplot as plt
+#
+# Importing CSV File
 data = pd.read_csv("/Users/saiffallah.GREENTNS/Desktop/titanic.csv",sep=',')
 data.head()
 #
@@ -7,20 +12,64 @@ data.head()
 data['Age'].fillna(data['Age'].mean(),inplace=True)
 #
 # Histogram of different Age
-import matplotlib.pyplot as plt
 plt.title("Histograme of different ages")
 plt.xlabel("Age")
 data['Age'].plot.hist()
 #
-# transform Sex's Type values to numerical values
-from sklearn.preprocessing import LabelEncoder
-encoder=LabelEncoder()
-data['Sex']=encoder.fit_transform(data['Sex'])
-data
+# Histogram "Bar plot of Sex"
+sns.countplot(x='Sex',data=data)
+plt.ylabel("Sex Value count")
+plt.title("Bar plot of Sex")
+plt.xticks(rotation=-45)
+#
+# Histogram "Survived Bar Plot"
+sns.countplot(x='Survived',data=data)
+plt.title("Survived Bar Plot")
+plt.ylabel("Value count")
+plt.xticks([0, 1], ['Not Survived', 'Survived'],rotation=-45)
+#
+# Class Bar Plot
+sns.countplot(x="Pclass", data=data)
+plt.ylabel("Class Value count")
+plt.xlabel(" ")
+plt.title("Class Bar Plot")
+plt.xticks([0, 1,2], ['First Class', 'Second Class', 'Third Class'],rotation=-45)
 #
 #
-import seaborn as sns
-g=sns.FacetGrid(data,col='Survived')
-g.map(plt.hist,'Sex')
-
-
+sns.countplot(x="Pclass", hue="Sex", data=data)
+plt.title("Sex Bar Plot by Class")
+plt.xlabel("")
+plt.ylabel("Sex Value count")
+plt.xticks([0, 1,2], ['First Class', 'Second Class', 'Third Class'],rotation=-45)
+#
+#
+g=sns.catplot(x="Pclass", hue="Sex", col="Survived",
+                data=data, kind="count",
+                height=5, aspect=1);
+(g.set_axis_labels("","Sex Value Count")
+.set_xticklabels(["First Class", "Second Class", "Third Class"]))
+#
+# Corrolation between Sex & Age and their impact to the survival
+g=sns.FacetGrid(data,col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Sex','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+# Corrolation between Sex & Age and their impact to the survival and Embarked
+g=sns.FacetGrid(data,row='Embarked',col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Sex','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+# Corrolation between Sex & Age and their impact to the survival and Class
+g=sns.FacetGrid(data,row='Pclass',col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Sex','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+# Use the groupby function combined with the mean() to view the relation between pclass and survive
+data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean()
+#
+# create a new column called Title
+new = data["Name"].str.split(",", n = 1, expand = True) 
+new1 = new[1].str.split(".", n = 1, expand = True)
+data["Title"]= new1[0]
+#
+#
