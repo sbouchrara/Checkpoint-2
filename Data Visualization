@@ -72,4 +72,7 @@ new = data["Name"].str.split(",", n = 1, expand = True)
 new1 = new[1].str.split(".", n = 1, expand = True)
 data["Title"]= new1[0]
 #
-#
+# Corrolation between Title and age and Survived
+g=sns.FacetGrid(data,col='Survived',height=4, aspect=1.6)
+g.map(sns.barplot, 'Title','Age',alpha=.5, ci=None)
+(g.set_xticklabels(rotation=-45))
