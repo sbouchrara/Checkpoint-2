@@ -64,6 +64,18 @@ g=sns.FacetGrid(data,row='Pclass',col='Survived',height=2.2, aspect=1.6)
 g.map(sns.barplot, 'Sex','Age',alpha=.5, ci=None)
 g.add_legend()
 #
+#
+## Looking at this function we can quickly see that:
+## The diagonal line is the correlation of the variables to themselvese. 
+## A co-efficient close to 1 means that there’s a very strong positive correlation between the two variables.
+## - Survived is negligibly correlate to Fare & Patch,the variables are directly related. But is inversely related with SibSp, Age, Pclass and Passengerid 
+## - Pclass is moderately correlate to Patch & negligibly correlate to SibSp, the variables are directly related. Is inversely Moderate related with Fare and inversely Low, Age and Survived. 
+## - Age is lowly negative correlate to Pclass. 
+## - Sibsp is lowly positive correlate to Parch and lowly negative correlate to Age.
+## - Parch is lowly positive correlate to SibSp
+## - Fare is moderately negative correlate to Pclass
+## This function is 
+#
 # Use the groupby function combined with the mean() to view the relation between pclass and survive
 data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean()
 #
