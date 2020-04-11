@@ -136,6 +136,43 @@ g.map(sns.barplot, 'Title','Age',alpha=.5, ci=None)
 g.add_legend()
 #
 # Family Size Feature
-
+data['Family_Size']=data['SibSp']+data['Parch']+1
+#
+# Family Size Plot
+plt.figure(figsize=(16,8))
+sns.countplot(x='Family_Size',data=data)
+plt.xticks(rotation=-45)
+#
+# Survived Family Size
+plt.figure(figsize=(16,8))
+sns.catplot(x="Family_Size", hue="Pclass", col="Survived",
+                data=data, kind="count",
+                height=5, aspect=1);
+#
+#
+plt.figure(figsize=(16,8))
+g=sns.FacetGrid(data,row='Embarked',col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Family_Size','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+# Family size by categories
+data['Family_Size_1']=data['Family_Size'].map(lambda s: 1 if s == 1 else 2 if s == 2 else 3 if 3<=s<=4 else 4 if s>=5 else 0)
+#
+# Family Size Category Plot
+plt.figure(figsize=(16,8))
+sns.countplot(x='Family_Size_1',data=data)
+plt.title("Family Size Category")
+plt.xlabel("Family Size")
+plt.ylabel("Family Category Size Value")
+plt.xticks([0, 1,2,3], ['First Category', 'Second Category', 'Third Category', 'Fourth Category'],rotation=-45)
+#
+# Plot "Survival rates for family size categories"
+plt.figure(figsize=(16,8))
+g=sns.catplot(x="Family_Size_1", hue="Pclass", col="Survived",
+                data=data, kind="count",
+                height=5, aspect=1);
+(g.set_axis_labels("","Family Size Value")
+.set_xticklabels(["1st Category", "2nd Category", "3rd Category", "4th Category"],rotation=-45)
+ .set_titles("Survival rates for family size categories"))
 
 
