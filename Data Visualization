@@ -117,6 +117,25 @@ sns.countplot(x='Title',data=data)
 plt.xticks(rotation=-45)
 #
 #
+sns.catplot(x="Title", hue="Sex", col="Survived",
+                data=data, kind="count",
+                height=5, aspect=1);
+#
+#
+g=sns.FacetGrid(data,col='Title')
+g.map(plt.hist,'Age', bins=20)
+#
+#
+g=sns.FacetGrid(data,row='Pclass',col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Title','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+#
+g=sns.FacetGrid(data,row='Embarked',col='Survived',height=2.2, aspect=1.6)
+g.map(sns.barplot, 'Title','Age',alpha=.5, ci=None)
+g.add_legend()
+#
+# Family Size Feature
 
 
 
