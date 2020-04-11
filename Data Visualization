@@ -80,11 +80,43 @@ g.add_legend()
 data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean()
 #
 # create a new column called Title
-new = data["Name"].str.split(",", n = 1, expand = True) 
-new1 = new[1].str.split(".", n = 1, expand = True)
-data["Title"]= new1[0]
+data['Title']= data['Name'].map(lambda name:name.split(',')[1].split('.')[0].strip())
 #
 # Corrolation between Title and age and Survived
 g=sns.FacetGrid(data,col='Survived',height=4, aspect=1.6)
 g.map(sns.barplot, 'Title','Age',alpha=.5, ci=None)
 (g.set_xticklabels(rotation=-45))
+#
+#
+Title_Dictionary = {
+
+                    "Capt":       "Officer",
+                    "Col":        "Officer",
+                    "Major":      "Officer",
+                    "Jonkheer":   "Royalty",
+                    "Don":        "Royalty",
+                    "Sir" :       "Royalty",
+                    "Dr":         "Officer",
+                    "Rev":        "Officer",
+                    "the Countess":"Royalty",
+                    "Mme":        "Mrs",
+                    "Mlle":       "Miss",
+                    "Ms":         "Mrs",
+                    "Mr" :        "Mr",
+                    "Mrs" :       "Mrs",
+                    "Miss" :      "Miss",
+                    "Master" :    "Master",
+                    "Lady" :      "Royalty"
+
+                    }
+data['Title']= data['Title'].map(Title_Dictionary)
+#
+#
+plt.figure(figsize=(16,8))
+sns.countplot(x='Title',data=data)
+plt.xticks(rotation=-45)
+#
+#
+
+
+
