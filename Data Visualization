@@ -74,7 +74,7 @@ g.add_legend()
 ## - Sibsp is lowly positive correlate to Parch and lowly negative correlate to Age.
 ## - Parch is lowly positive correlate to SibSp
 ## - Fare is moderately negative correlate to Pclass
-## This function is 
+## This function shows that SibSP and Parch move in the same direction.Also, Pclass and Fare move in opposite directions
 #
 # Use the groupby function combined with the mean() to view the relation between pclass and survive
 data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean()
