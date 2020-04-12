@@ -77,7 +77,7 @@ g.add_legend()
 ## This function shows that SibSP and Parch move in the same direction.Also, Pclass and Fare move in opposite directions
 #
 # Use the groupby function combined with the mean() to view the relation between pclass and survive
-data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean()
+data[['Pclass','Survived']].groupby(['Pclass'], as_index=True).mean().plot(kind='bar')
 #
 # create a new column called Title
 data['Title']= data['Name'].map(lambda name:name.split(',')[1].split('.')[0].strip())
